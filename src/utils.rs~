@@ -1,0 +1,14 @@
+pub fn bin_from_b64file(f: &str) -> Vec<u8> {
+    let mut cipher_text = String::new();
+
+    if let Ok(t) = File::open(f) {
+        let reader = BufReader::new(t);
+        for line_res in reader.lines() {
+            if let Ok(line) = line_res {
+                cipher_text = cipher_text + &line;
+            }
+        }
+    }
+
+    cipher_text.from_base64().unwrap()
+}
